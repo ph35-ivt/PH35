@@ -74,6 +74,8 @@
                     <td>Breed ID</td>
                     <td>Create At</td>
                     <td>Update At</td>
+                    <td>Deleted At</td>
+                    <td>Action</td>
                 </tr>
             </thead>
             <tbody>
@@ -85,6 +87,27 @@
                         <td>{{$cat->breed_id}}</td>
                         <td>{{$cat->created_at}}</td>
                         <td>{{$cat->updated_at}}</td>
+                        <td>{{$cat->deleted_at}}</td>
+                        <td>
+                            @if (empty($cat->deleted_at))
+                                <form action="{{route('delete-cat', $cat->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit">Delete</button>
+                                </form>
+                                <form action="{{route('force-delete-cat', $cat->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit">Force Delete</button>
+                                </form>
+                            @else
+                                <form action="{{route('restore-cat', $cat->id)}}" method="POST">
+                                    @csrf
+                                    <button>Restore</button>
+                                </form>
+                            @endif
+
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

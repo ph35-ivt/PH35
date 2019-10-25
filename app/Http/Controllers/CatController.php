@@ -14,7 +14,7 @@ class CatController extends Controller
      */
     public function index()
     {
-        $listCats = Cat::all();
+        $listCats = Cat::withTrashed()->get();
         // dd($listCats);
         //select * from cats;
         $title= 'List Cat';
@@ -99,6 +99,20 @@ class CatController extends Controller
     public function destroy($id)
     {
         Cat::destroy($id);
+        return redirect()->route('list-cat');
+    }
+
+    public function restore($id)
+    {
+        $cat = Cat::withTrashed()->find($id);
+        $cat->restore();
+        return redirect()->route('list-cat');
+    }
+
+    public function forceDelete($id)
+    {
+        $cat= Cat::find($id);
+        $cat->forceDelete();
         return redirect()->route('list-cat');
     }
 }
