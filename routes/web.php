@@ -32,3 +32,10 @@ Route::post('/cats/{id}', 'CatController@restore')->name('restore-cat');
 Route::delete('/cats/{id}/force-delete', 'CatController@forceDelete')->name('force-delete-cat');
 //get all comment of post
 Route::get('/posts/{id}/comments' , 'PostController@listComment');
+//list post of country
+Route::get('/countries/{id}/posts', 'CountryController@listPost');
+
+//Create user
+Route::get('/users/create', 'UserController@create')->name('create-user');
+//store user
+Route::post('/users', 'UserController@store')->name('store-user');
