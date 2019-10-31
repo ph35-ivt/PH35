@@ -15,7 +15,7 @@ class CatController extends Controller
     public function index()
     {
         $listCats = Cat::withTrashed()->get();
-        // dd($listCats);
+        // dd($listCats->first());
         //select * from cats;
         $title= 'List Cat';
         return view('cats.list_cat', compact('listCats', 'title'));

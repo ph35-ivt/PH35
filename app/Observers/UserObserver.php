@@ -14,7 +14,14 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $user->roles()->attach(1);
+        $user->roles()->attach([
+            1 =>['created_at' => now(), 'updated_at' => now()
+            ],
+            2 => ['created_at' => now(), 'updated_at' => now()
+            ],
+            3 => ['created_at' => now(), 'updated_at' => now()
+            ]
+        ]);
     }
 
     /**

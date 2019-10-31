@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Country;
 
 class UserController extends Controller
 {
@@ -23,7 +25,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create_user');
+        $listCountry= Country::all();
+        return view('user.create_user', compact('listCountry'));
     }
 
     /**
@@ -34,7 +37,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        User::create($data);
+        dd( 'success');
+
     }
 
     /**
