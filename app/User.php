@@ -41,4 +41,19 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Role');
     }
+
+    public function comments()
+    {
+        return $this->hasManyThrough('App\Comment', 'App\Post');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
+    public function roleUsers()
+    {
+        return $this->hasMany('App\RoleUser');
+    }
 }

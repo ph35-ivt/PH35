@@ -106,6 +106,7 @@
                                     <button>Restore</button>
                                 </form>
                             @endif
+                            <a class="btn" href="{{route('form-edit-cat',$cat->id)}}">Edit</a>
 
                         </td>
                     </tr>

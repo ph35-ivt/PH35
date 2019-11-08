@@ -18,3 +18,6 @@
     <button type="submit">Create</button>
 </form>
 @endsection
+@section('script')
+<script type="text/javascript" src="/abc.js"></script>
+@endsection

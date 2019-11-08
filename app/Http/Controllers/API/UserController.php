@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\User;
-use App\Country;
-use App\Post;
-use App\Comment;
-use App\RoleUser;
 
 class UserController extends Controller
 {
@@ -28,8 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $listCountry= Country::all();
-        return view('user.create_user', compact('listCountry'));
+        //
     }
 
     /**
@@ -40,10 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        User::create($data);
-        dd( 'success');
-
+        //
     }
 
     /**
@@ -54,7 +47,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return response()->json($user, 200);
     }
 
     /**
@@ -88,37 +82,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //CÁCH 1
-        // //xoá post
-        // $listPost = Post::where('user_id', $id)->get();
-        // foreach ($listPost as  $post) {
-
-        //     //xoá comment
-        //     $listComment = Comment::where('post_id', $post->id)->get();
-        //     foreach ($listComment as $comment) {
-        //         $comment->delete();
-        //     }
-        //     $post->delete();
-        // }
-        // //xoá role user
-        // $listRoleUser = RoleUser::where('user_id', $id)->get();
-        // foreach ($listRoleUser as $roleUser) {
-        //     $roleUser->delete();
-        // }
-        // User::destroy($id);
-        // return 'success';
-
-        //CÁCH 2
-        $user = User::find($id);
-        //1.xoá comment
-        $user->comments()->delete();
-        //2. xoá post
-        $user->posts()->delete();
-        //3. xoá role user
-        $user->roleUsers()->delete();
-        //4. xoá user
-        $user->delete();
-        // User::destroy($id);
-        return 'success';
+        User::destroy($id);
+        return response()->json(['success' =>'delete success!'] ,200);
     }
 }

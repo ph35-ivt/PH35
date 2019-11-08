@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cat;
+use App\Http\Requests\CreateCatRequest;
 
 class CatController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('isAdmin');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +42,7 @@ class CatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCatRequest $request)
     {
         $data =$request->except('_token');
         // dd($data);
@@ -71,7 +76,8 @@ class CatController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cat= Cat::find($id);
+        return view('cats.form_edit_cat', compact('cat'));
     }
 
     /**
@@ -84,12 +90,16 @@ class CatController extends Controller
     public function update(Request $request, $id)
     {
         $cat = Cat::find($id);
-        $cat->name= 'cata';
-        $cat->age = 10;
-        $cat->save();
-        echo 'success';
+        $data= $request->only('name', 'age', 'breed_id');
+        $cat->update($data);
+        return redirect()->route('list-cat');
     }
 
+    public function updateCat(Request $request, $id)
+    {
+        $cat= Cat::find($id);
+        $data= $request->all();
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -104,7 +114,7 @@ class CatController extends Controller
 
     public function restore($id)
     {
-        $cat = Cat::withTrashed()->find($id);
+        $cat = Cat::find($id);
         $cat->restore();
         return redirect()->route('list-cat');
     }

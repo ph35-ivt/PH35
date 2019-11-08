@@ -69,10 +69,19 @@
             @csrf
             <label>Cat Name:</label>
             <input type="text" name="name"/>
+            @if($errors->has('name'))
+            <p style="color: red;"> {{$errors->first('name')}}</p>
+            @endif
             <label>Age :</label>
             <input type="text" name="age"/>
+            @if($errors->has('age'))
+            <p style="color: red;"> {{$errors->first('age')}}</p>
+            @endif
             <label>Breed ID</label>
             <input type="text" name="breed_id">
+            @if($errors->has('breed_id'))
+            <p style="color: red;"> {{$errors->first('breed_id')}}</p>
+            @endif
             <button type="submit">Create</button>
         </form>
     </body>
